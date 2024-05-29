@@ -121,7 +121,7 @@ def receive_message():
         # يمكنك هنا إجراء أي عمليات إضافية على الرسالة المستلمة
         # على سبيل المثال، يمكنك التحقق من صحة الروابط
         # والتحقق من كفاية الموارد وما إلى ذلك
-        return {'confirmation_message': f'Message received: {received_message}'}
+        return {'confirmation_message': f'Message received -1 : {received_message}'}
     else:
         return {'error': 'No message received'}, 400  # رسالة خطأ إذا لم يتم استقبال أي رسالة
 
