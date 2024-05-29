@@ -13,7 +13,7 @@ import mysql.connector
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "https://healthsync-website.surge.sh", "https://omar-shurbaji.github.io/test/"]}})
+CORS(app, resources={r"/*": {"origins": ["*"]}})
 
 epsilon = 1e-5
 smooth = 1
