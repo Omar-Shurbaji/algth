@@ -54,6 +54,7 @@ def predict():
 
     try:
         img = Image.open(image_file)
+         img = img.convert("RGB")  # Convert image to RGB
         img = img.resize((224, 224))
         img = np.array(img)
         img = img / 255.0
