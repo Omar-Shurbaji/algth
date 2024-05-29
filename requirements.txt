@@ -1,8 +1,7 @@
 flask
-opencv-python-headless
-numpy
+gunicorn
 tensorflow
-tensorflow-keras
 flask-cors
+opencv-python-headless
 Pillow
 mysql-connector-python
