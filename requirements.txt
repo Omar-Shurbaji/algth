@@ -1,8 +1,2 @@
 Flask
 gunicorn
-flask-cors
-tensorflow
-opencv-python-headless
-numpy
-pillow
-mysql-connector-python
