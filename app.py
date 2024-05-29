@@ -1,22 +1,22 @@
-# from flask import Flask, request, jsonify, send_file ,render_template
-# import cv2
-# import numpy as np
-# import tensorflow as tf 
-# import tensorflow.keras.backend as K
-# from tensorflow.keras.models import load_model
-# from flask_cors import CORS
-# import io
-# import os
-# import base64
-# from PIL import Image
-# import mysql.connector
+from flask import Flask, request, jsonify, send_file ,render_template
+import cv2
+import numpy as np
+import tensorflow as tf 
+import tensorflow.keras.backend as K
+from tensorflow.keras.models import load_model
+from flask_cors import CORS
+import io
+import os
+import base64
+from PIL import Image
+import mysql.connector
 
 
-# app = Flask(__name__)
-# CORS(app, resources={r"/*": {"origins": ["*"]}})
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["*"]}})
 
-# epsilon = 1e-5
-# smooth = 1
+epsilon = 1e-5
+smooth = 1
 
 # def tversky(y_true, y_pred):
 #     y_true_pos = K.flatten(y_true)
@@ -39,34 +39,34 @@
 #     return 1 - tversky(y_true, y_pred)
 
 # # Loading the segmentation model
-# new_model = load_model('./models/model-5.keras')
+new_model = load_model('./models/model-5.keras')
 # # model = load_model("seg_model.h5",custom_objects={"focal_tversky":focal_tversky,"tversky":tversky,"tversky_loss":tversky_loss})
 
 
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     if 'image' not in request.files:
-#         return jsonify({'error': 'No image found'})
+@app.route('/predict', methods=['POST'])
+def predict():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image found'})
 
-#     image_file = request.files['image']
-#     if image_file.filename == '':
-#         return jsonify({'error': 'No selected image'})
+    image_file = request.files['image']
+    if image_file.filename == '':
+        return jsonify({'error': 'No selected image'})
 
-#     try:
-#         img = Image.open(image_file)
-#         img = img.resize((224, 224))
-#         img = np.array(img)
-#         img = img / 255.0
-#         img = np.expand_dims(img, axis=0)
-#         prediction = new_model.predict(img)
-#         result = "Pneumonia" if prediction[0][0] < 0.5 else "Normal"
-#         return jsonify({'result': result})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
+    try:
+        img = Image.open(image_file)
+        img = img.resize((224, 224))
+        img = np.array(img)
+        img = img / 255.0
+        img = np.expand_dims(img, axis=0)
+        prediction = new_model.predict(img)
+        result = "Pneumonia" if prediction[0][0] < 0.5 else "Normal"
+        return jsonify({'result': result})
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
-# def reconstruct_original_image(original_base64):
-#     original_image = cv2.imdecode(np.frombuffer(base64.b64decode(original_base64), np.uint8), cv2.IMREAD_COLOR)
-#     return original_image
+def reconstruct_original_image(original_base64):
+    original_image = cv2.imdecode(np.frombuffer(base64.b64decode(original_base64), np.uint8), cv2.IMREAD_COLOR)
+    return original_image
 
 # @app.route('/')
 # def index():
@@ -101,12 +101,12 @@
 #         })
 
 
-from flask import Flask, request
-from flask_cors import CORS
-import os
+# from flask import Flask, request
+# from flask_cors import CORS
+# import os
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["*"]}})
+# app = Flask(__name__)
+# CORS(app, resources={r"/*": {"origins": ["*"]}})
 
 
 @app.route('/')
