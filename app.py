@@ -39,7 +39,7 @@ def tversky_loss(y_true, y_pred):
     return 1 - tversky(y_true, y_pred)
 
 # Loading the segmentation model
-new_model = load_model('./models/model-5.keras')
+new_model = load_model('./model-5.keras')
 # model = load_model("seg_model.h5",custom_objects={"focal_tversky":focal_tversky,"tversky":tversky,"tversky_loss":tversky_loss})
 
 
