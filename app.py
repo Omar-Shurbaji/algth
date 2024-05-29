@@ -53,13 +53,26 @@ def predict():
         return jsonify({'error': 'No selected image'})
 
     try:
+        # Open the image
         img = Image.open(image_file)
-        img = img.resize((224, 224))
+        img = img.convert("RGB")  # Convert image to RGB
+        img = img.resize((224, 224))  # Resize image to 224x224
+
+        # Compress the image and reload it to reduce size
+        img_byte_arr = io.BytesIO()
+        img.save(img_byte_arr, format='JPEG', quality=85)  # Compress image
+        img_byte_arr.seek(0)
+        img = Image.open(img_byte_arr)
+
+        # Convert image to numpy array and prepare for model
         img = np.array(img)
         img = img / 255.0
         img = np.expand_dims(img, axis=0)
+
+        # Make prediction
         prediction = new_model.predict(img)
         result = "Pneumonia" if prediction[0][0] < 0.5 else "Normal"
+
         return jsonify({'result': result})
     except Exception as e:
         return jsonify({'error': str(e)})
